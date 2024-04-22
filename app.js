@@ -135,15 +135,18 @@ app.get("/states/:stateId/stats/", async (request, response) => {
   const { stateId } = request.params;
   const stateDistrictQuery = `
         SELECT  
-            SUM(cases) AS totalCases,
-            SUM(cured) AS totalCured,
-            SUM(active) AS totalActive,
-            SUM(deaths) AS totalDeaths,
-        FROM district
+            SUM(cases) as totalCases,
+            SUM(cured) as totalCured,
+            SUM(active) as totalActive,
+            SUM(deaths) as totalDeaths
+
+        FROM 
+
+        district
 
         WHERE state_id = ${stateId};
     `;
-  const statsArray = database.get(stateDistrictQuery);
+  const statsArray = await database.get(stateDistrictQuery);
   response.send(statsArray);
 });
 // dis
